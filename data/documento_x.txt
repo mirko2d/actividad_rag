@@ -1,0 +1,29 @@
+Título: Introducción práctica a RAG (Retrieval-Augmented Generation)
+
+La generación aumentada con recuperación (RAG) es un patrón que combina modelos de lenguaje con sistemas de búsqueda para responder preguntas citando información externa. En lugar de confiar únicamente en los pesos del modelo, RAG recupera fragmentos de documentos relevantes y los proporciona como contexto al LLM para producir respuestas más precisas, actualizadas y con atribución.
+
+Componentes principales de un sistema RAG:
+1) Cargadores de documentos: leen y normalizan fuentes como PDFs, páginas web o archivos de texto.
+2) División de texto: trocean el contenido en fragmentos (chunks) con solapamiento para conservar contexto.
+3) Embeddings: representan los fragmentos como vectores en un espacio semántico.
+4) Base de datos vectorial: indexa y recupera los vectores más similares a una consulta.
+5) LLM con prompt: recibe la pregunta y los fragmentos recuperados y genera una respuesta.
+
+Buenas prácticas para RAG:
+- Ajustar el tamaño de chunk y el solapamiento según el dominio. Texto denso técnico puede requerir chunks más pequeños, mientras que narrativas pueden tolerar chunks mayores.
+- Escoger embeddings robustos para el idioma objetivo (por ejemplo, español) y el dominio. Modelos con entrenamiento multilingüe suelen funcionar mejor en escenarios bilingües.
+- Añadir metadatos útiles (título, secciones, fecha, fuente) para permitir filtrado posterior y trazabilidad.
+- Evaluar la recuperación con consultas de referencia y analizar la cobertura de contexto.
+- Diseñar prompts que incentiven la cita explícita de fuentes y la abstención cuando no haya evidencia suficiente.
+
+Sobre Chroma como base vectorial:
+Chroma ofrece persistencia local sencilla, filtros por metadatos y una API amigable. Es adecuado para prototipos y despliegues ligeros. Para cargas mayores o necesidades distribuídas, alternativas como FAISS, Milvus o Weaviate pueden ser preferibles.
+
+Ejemplos de preguntas para este documento:
+- ¿Qué es RAG y cuáles son sus componentes?
+- ¿Por qué es importante el solapamiento entre chunks?
+- ¿Cuándo elegir Chroma frente a otras bases vectoriales?
+- ¿Qué prácticas ayudan a mejorar la atribución de fuentes?
+
+Notas sobre embeddings y LLMs:
+Los embeddings determinan la calidad de la recuperación, mientras que el LLM determina la redacción y fidelidad final. Probar múltiples combinaciones puede mejorar el rendimiento global. Además, modelos como Gemini (vía Google) u Ollama (modelos locales) ofrecen distintas ventajas en latencia, coste y privacidad.
